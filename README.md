@@ -24,7 +24,7 @@ Step 2. Add the dependency
  
  <p>add view to layout:</p>
 
-<p>
+
     <com.learnina.materialverticalstepper.verticalstepper.VerticalStepper
         android:id="@+id/vertical_list"
         android:layout_width="match_parent"
@@ -33,11 +33,11 @@ Step 2. Add the dependency
         android:orientation="vertical"
          />
 	
-</p>
+
 
 <p>add titles and fragments as stepper items</p>
 
-<p>
+
         val listItem = mutableListOf<VerticalItem>()
 
         listItem.add(0,
@@ -51,4 +51,3 @@ Step 2. Add the dependency
         )
 
         vertical_list.setCustomItemList(listItem, supportFragmentManager)
-</p>
