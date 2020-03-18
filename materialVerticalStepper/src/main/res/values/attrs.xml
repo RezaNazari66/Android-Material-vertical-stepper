@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="custom_component_attributes">
+        <attr name="custom_title" format="string" />
+        <attr name="is_last_item" format="boolean" />
+        <attr name="circle_number" format="string" />
+        <attr name="is_done" format="boolean" />
+    </declare-styleable>
+
+
+
+    <declare-styleable name="custom_num_picker_attributes">
+        <attr name="value" format="integer" />
+        <attr name="changeStep" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="min" format="integer" />
+    </declare-styleable>
+
+</resources>

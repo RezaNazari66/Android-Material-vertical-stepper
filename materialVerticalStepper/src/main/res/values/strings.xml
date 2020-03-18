@@ -1,0 +1,56 @@
+<resources>
+<!--    <string name="app_name">PMS</string>-->
+<!--    <string name="definition_and_reference">تعریف و ارجاع</string>-->
+<!--    <string name="progress_monitoring">پیشرفت / پایش</string>-->
+<!--    <string name="profile">پروفایل</string>-->
+<!--    <string name="calendar">تقویم</string>-->
+<!--    <string name="more">بیشتر</string>-->
+<!--    <string name="percent">٪%S</string>-->
+<!--    <string name="step">%S گام </string>-->
+<!--    <string name="edit">ویرایش</string>-->
+<!--    <string name="delete">حذف</string>-->
+<!--    <string name="refer">ارجاع</string>-->
+<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
+<!--    <string name="not_found">موردی یافت نشد.</string>-->
+<!--    <string name="search">جستجو...</string>-->
+<!--    <string name="weight">وزن:</string>-->
+<!--    <string name="weight_without_colon">وزن</string>-->
+<!--    <string name="progress">میزان پیشرفت:</string>-->
+<!--    <string name="owner">مالک:</string>-->
+<!--    <string name="assigment">اجرا کننده:</string>-->
+<!--    <string name="times">زمان ها</string>-->
+<!--    <string name="progressWithoutDot">میزان پیشرفت</string>-->
+<!--    <string name="time">زمان</string>-->
+<!--    <string name="title">عنوان</string>-->
+<!--    <string name="there_is_no_comment">هیچ نظری ثبت نشده است.</string>-->
+<!--    <string name="no_sub_task">زیر مجموعه ای تعریف نشده است.</string>-->
+<!--    <string name="cancel">لغو</string>-->
+<!--    <string name="add_new_comment">افزودن نظر جدید</string>-->
+<!--    <string name="save">ذخیره</string>-->
+<!--    <string name="add_comment">افزودن نظر</string>-->
+<!--    <string name="component_one">test</string>-->
+<!--    <string name="description">توضیحات</string>-->
+<!--    <string name="date">تاریخ</string>-->
+<!--    <string name="expected_progress">پیشرفت مورد انتظار</string>-->
+    <string name="next">next</string>
+    <string name="prev">prev</string>
+    <string name="fab">fab</string>
+
+
+    <!--    <string-array name="owner_arrays">-->
+<!--        <item>همه</item>-->
+<!--        <item>ایجاد شده توسط من</item>-->
+<!--        <item>ارجاع شده به من</item>-->
+<!--    </string-array>-->
+
+
+<!--    <string-array name="level_array">-->
+<!--        <item>شاخص</item>-->
+<!--        <item>هدف</item>-->
+<!--    </string-array>-->
+
+<!--    <string-array name="comment_access">-->
+<!--        <item>عمومی</item>-->
+<!--        <item>خصوصی</item>-->
+<!--    </string-array>-->
+</resources>
