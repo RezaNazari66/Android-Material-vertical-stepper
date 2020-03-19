@@ -1,53 +1,86 @@
 package com.learnina.materialverticalstepper.verticalstepper
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.learnina.materialverticalstepper.R
 import com.learnina.materialverticalstepper.databinding.StepperItemBinding
 
 class VerticalStepperAdapter(
-    private val fragmentManager: FragmentManager
-) : ListAdapter<VerticalItem, VerticalStepperAdapter.TestViewHolder>(
+    private val fragmentManager: FragmentManager,
+    val context: Context
+) : ListAdapter<VerticalItem, VerticalStepperAdapter.StepperViewHolder>(
     TestDiffCallback()
 ) {
-
-
-    private var lastClickedItemPostion = -1
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestViewHolder {
+    private var activeDrawable:Drawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.drawable.circle_bg)!!)
+    private var inActiveDrawable:Drawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.drawable.circle_bg)!!);
+    init {
+        DrawableCompat.setTint(activeDrawable, ContextCompat.getColor(context, activeColor))
+        DrawableCompat.setTint(inActiveDrawable, ContextCompat.getColor(context, inActiveColor))
+    }
+    private var lastClickedItemPosition = -1
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepperViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: StepperItemBinding = StepperItemBinding.inflate(inflater, parent, false)
-        return TestViewHolder(
+        return StepperViewHolder(
             binding
         )
     }
 
-    override fun onBindViewHolder(holder: TestViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StepperViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.item = item
-//        removeOldFragment(holder, position)
 
         if (item.isOpen) {
             addFragmentToView(holder, position)
             addFragmentToView(holder, position)
         }
 
-        holder.binding.btnNext.setOnClickListener {
-            if (position < itemCount - 1) {
-                val nextItem = getItem(position + 1)
-                nextItem.isOpen = true
-                item.isOpen = false
-                notifyItemChanged(position)
-                notifyItemChanged(position + 1)
-                lastClickedItemPostion = position + 1
+        if (item.isActive){
+            holder.binding.circleImage.background = activeDrawable
+        }else{
+            holder.binding.circleImage.background = inActiveDrawable
+
+        }
+
+        if (position >= itemCount - 1){
+
+            holder.binding.btnNext.text = finishText
+            holder.binding.btnNext.setOnClickListener {
+                item.fragment.finishButtonAction()
+            }
+        }else{
+            holder.binding.btnNext.text = nextText
+
+            holder.binding.btnNext.setOnClickListener {
+                if (item.fragment.checkFieldsValidation()) {
+                    if (position < itemCount - 1) {
+                        item.isCompleted = true
+                        val nextItem = getItem(position + 1)
+                        nextItem.isOpen = true
+                        nextItem.isActive = true
+                        item.isOpen = false
+                        notifyItemChanged(position)
+                        notifyItemChanged(position + 1)
+                        lastClickedItemPosition = position + 1
+
+                    }
+                }
+
 
             }
 
         }
+
         holder.binding.btnPrev.setOnClickListener {
             if (position > 0) {
 
@@ -56,20 +89,24 @@ class VerticalStepperAdapter(
                 item.isOpen = false
                 notifyItemChanged(position)
                 notifyItemChanged(position - 1)
-                lastClickedItemPostion = position - 1
+                lastClickedItemPosition = position - 1
 
             }
         }
 
         holder.binding.circleImage.setOnClickListener {
-            item.isOpen = !item.isOpen
+            if (item.isActive) {
 
-            if (lastClickedItemPostion != -1 && getItem(lastClickedItemPostion).isOpen && lastClickedItemPostion != position) {
-                getItem(lastClickedItemPostion).isOpen = !getItem(lastClickedItemPostion).isOpen
-                notifyItemChanged(lastClickedItemPostion)
+                item.isOpen = !item.isOpen
+
+                if (lastClickedItemPosition != -1 && getItem(lastClickedItemPosition).isOpen && lastClickedItemPosition != position) {
+                    getItem(lastClickedItemPosition).isOpen = !getItem(lastClickedItemPosition).isOpen
+                    notifyItemChanged(lastClickedItemPosition)
+                }
+                notifyItemChanged(position)
+                lastClickedItemPosition = position
+
             }
-            notifyItemChanged(position)
-            lastClickedItemPostion = position
 
         }
 
@@ -78,9 +115,10 @@ class VerticalStepperAdapter(
 
     }
 
+
     private fun checkViewVisibility(
         item: VerticalItem,
-        holder: TestViewHolder,
+        holder: StepperViewHolder,
         position: Int
     ) {
         if (item.isOpen) {
@@ -91,32 +129,32 @@ class VerticalStepperAdapter(
 
         if (item.isOpen) {
 
-            if (position >= (itemCount - 1)) {
-                holder.binding.btnNext.visibility = View.GONE
-            } else {
-                holder.binding.btnNext.visibility = View.VISIBLE
-            }
-
-            if (position <= 0) {
+            if (position == 0) {
                 holder.binding.btnPrev.visibility = View.GONE
             } else {
                 holder.binding.btnPrev.visibility = View.VISIBLE
             }
+            holder.binding.btnNext.visibility = View.VISIBLE
+            holder.binding.contentFragment.visibility = View.VISIBLE
 
         } else {
             holder.binding.btnNext.visibility = View.GONE
             holder.binding.btnPrev.visibility = View.GONE
+            holder.binding.contentFragment.visibility = View.GONE
+
         }
 
 
-        if (position == itemCount-1 || item.isOpen){
+        if (position == itemCount - 1 || item.isOpen) {
             holder.binding.verticalLine.visibility = View.GONE
-        }else{
+        } else {
             holder.binding.verticalLine.visibility = View.VISIBLE
         }
+
+
     }
 
-    private fun addFragmentToView(holder: TestViewHolder, position: Int) {
+    private fun addFragmentToView(holder: StepperViewHolder, position: Int) {
         removeOldFragment(holder)
         val newContainerId: Int = position + 10000
         holder.binding.contentFragment.id = newContainerId // Set container id
@@ -126,7 +164,7 @@ class VerticalStepperAdapter(
             .commit()
     }
 
-    private fun removeOldFragment(holder: TestViewHolder) {
+    private fun removeOldFragment(holder: StepperViewHolder) {
 
         val containerId: Int = holder.binding.contentFragment.id // Get container id
         val oldFragment: Fragment? = fragmentManager.findFragmentById(containerId)
@@ -137,7 +175,12 @@ class VerticalStepperAdapter(
     }
 
 
-    class TestViewHolder(var binding: StepperItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class StepperViewHolder(var binding: StepperItemBinding) : RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.btnNext.text = nextText
+            binding.btnPrev.text = prevText
+        }
+    }
 
 
 }

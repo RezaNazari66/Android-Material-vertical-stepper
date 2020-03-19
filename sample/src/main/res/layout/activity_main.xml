@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.learnina.materialverticalstepper.verticalstepper.VerticalStepper
-        android:id="@+id/vertical_list"
+        android:id="@+id/stepper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

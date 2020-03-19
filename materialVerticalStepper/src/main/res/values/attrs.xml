@@ -9,11 +9,4 @@
 
 
 
-    <declare-styleable name="custom_num_picker_attributes">
-        <attr name="value" format="integer" />
-        <attr name="changeStep" format="integer" />
-        <attr name="max" format="integer" />
-        <attr name="min" format="integer" />
-    </declare-styleable>
-
 </resources>

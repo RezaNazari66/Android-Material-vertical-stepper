@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#03A9F4">
+    >
 
-    <TextView
+    <EditText
+        android:id="@+id/et_age"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="30dp"
-        android:text="Fragment3"
+        android:hint="age"
+        android:inputType="number"
         android:textAlignment="center" />
 
 </FrameLayout>
