@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#FFEB3B</color>
 <!--    <color name="grayF2">#F2F2F2</color>-->
 <!--    <color name="grayF8">#F8F8F8</color>-->
 <!--    <color name="grayE8">#E8E8E8</color>-->
@@ -16,5 +16,6 @@
 <!--    <color name="darkerRed">#B6134D</color>-->
     <color name="grayd8">#d8d8d8</color>
     <color name="grayDa">#DADADA</color>
+    <color name="gray82">#828282</color>
 
 </resources>

@@ -21,7 +21,8 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginStart="10dp"
-            android:background="@drawable/circle_bg"
+            android:focusable="@{item.isActive ? true : false}"
+            tools:background="@drawable/circle_bg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1">
@@ -32,8 +33,10 @@
                 android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:contentDescription="@string/fab"
-                android:visibility="@{item.isOpen ? View.VISIBLE : View.GONE}"
-                app:srcCompat="@drawable/ic_edit_simple" />
+                android:src="@{item.isCompleted ? @drawable/ic_done : @drawable/ic_edit_simple}"
+                tools:src="@drawable/ic_edit_simple"
+                android:visibility="@{item.isOpen || item.isCompleted ? View.VISIBLE : View.GONE}"
+ />
 
             <TextView
                 android:id="@+id/tv_number"
@@ -43,7 +46,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 app:cardCornerRadius="50dp"
-                android:visibility="@{item.isOpen ? View.GONE : View.VISIBLE}"
+                android:visibility="@{item.isOpen || item.isCompleted ? View.GONE : View.VISIBLE}"
                 android:text="@{item.id.toString()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,6 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            android:textStyle="bold"
             android:text="@{item.title}"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/circle_image"
@@ -106,6 +110,8 @@
             android:layout_height="wrap_content"
             android:text="@string/next"
             android:textSize="12sp"
+            app:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@+id/btn_prev"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -129,12 +135,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content_fragment" />
 
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{item.isOpen ? View.VISIBLE : View.GONE}"
-            app:constraint_referenced_ids="content_fragment,btn_next,btn_prev" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
