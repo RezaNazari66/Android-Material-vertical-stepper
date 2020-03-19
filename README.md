@@ -22,7 +22,7 @@ Step 2. Add the dependency
   
 <h2> Usage </h2>
  
- <p>add view to layout:</p>
+ <p>1. add view to layout:</p>
 
 
     <com.learnina.materialverticalstepper.verticalstepper.VerticalStepper
@@ -32,10 +32,28 @@ Step 2. Add the dependency
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
          />
+<p>2.create your fragment as stepper steps but instead of extending Fragment() extend from  StepperFragment()	
+
+	class Fragment1 : StepperFragment()
+
+<p>3. override checkFieldsValidation() method and check inputs on it and if all inputs are completed return true
 	
+	
+    override fun checkFieldsValidation() :  Boolean{
+        return if (et_name.text.isNotEmpty()){
+            true
+        }else{
+            Toast.makeText(context,"please enter name", Toast.LENGTH_SHORT).show()
+            false
+        }
+    }
+<p>4. on last fragment ( last stepper item) override finishButtonAction() method this method will call when you press stepper finish button 	
+	
+	override fun finishButtonAction() {
+        //when finish button pressed
+    	}
 
-
-<p>add titles and fragments as stepper items</p>
+<p>5. add titles and fragments as stepper items on your activity ( of where you use VerticalStepper view)</p>
 
 
         val listItem = mutableListOf<VerticalItem>()
