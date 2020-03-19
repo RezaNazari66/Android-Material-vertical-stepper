@@ -22,7 +22,7 @@ Step 2. Add the dependency
   
 <h2> Usage </h2>
  
- <p>1. add view to layout:</p>
+ <p>1. add view to your layout:</p>
 
 
     <com.learnina.materialverticalstepper.verticalstepper.VerticalStepper
@@ -32,11 +32,11 @@ Step 2. Add the dependency
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
          />
-<p>2.create your fragment as stepper steps but instead of extending Fragment() extend from  StepperFragment()	
+<p>2. create your fragment as step of stepper but instead of extending Fragment() extend StepperFragment()	
 
 	class Fragment1 : StepperFragment()
 
-<p>3. override checkFieldsValidation() method and check inputs on it and if all inputs are completed return true
+<p>3. override checkFieldsValidation() method and check inputs ,if all inputs are completed and valid return true
 	
 	
     override fun checkFieldsValidation() :  Boolean{
@@ -47,25 +47,21 @@ Step 2. Add the dependency
             false
         }
     }
-<p>4. on last fragment ( last stepper item) override finishButtonAction() method this method will call when you press stepper finish button 	
+    
+<p>4. in last fragment ( last stepper item) override finishButtonAction() method. this method will call when you press stepper finish button 	
 	
 	override fun finishButtonAction() {
-        //when finish button pressed
+         //when finish button pressed
     	}
 
-<p>5. add titles and fragments as stepper items on your activity ( of where you use VerticalStepper view)</p>
+<p>5. add titles and fragments to a list as stepper items set to setStepperStepList on your activity ( or where you use VerticalStepper view)</p>
 
 
-        val listItem = mutableListOf<VerticalItem>()
+        val stepList = mutableListOf<VerticalItem>()
 
-        listItem.add(0,
-            VerticalItem("title1 ", "1", Fragment1())
-        )
-        listItem.add(1,
-            VerticalItem("title2 ", "2", Fragment2())
-        )
-        listItem.add(2,
-            VerticalItem("title3 ", "3", Fragment3())
-        )
+        stepList.add(0, VerticalItem("Name ", "1", Fragment1()) )
+        stepList.add(1, VerticalItem("Address", "2", Fragment2()) )
+        stepList.add(2, VerticalItem("Age", "3", Fragment3()) )
 
-        vertical_list.setCustomItemList(listItem, supportFragmentManager)
+        stepper.setStepperStepList(stepList, supportFragmentManager)
+        stepper.setButtonText("next", "prev", "finish")
