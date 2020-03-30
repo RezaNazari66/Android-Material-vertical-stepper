@@ -15,7 +15,7 @@ class VerticalStepper @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     var binding: VerticalStepperBinding
-
+    private var adapter : VerticalStepperAdapter? = null
     init {
         val inflater = LayoutInflater.from(context)
 
@@ -29,16 +29,17 @@ class VerticalStepper @JvmOverloads constructor(
 
     }
 
+
+
     fun setStepperStepList(listOfItem: List<VerticalItem>, fragmentManager: FragmentManager) {
-        val adapter =
-            VerticalStepperAdapter(fragmentManager, context)
+         adapter = VerticalStepperAdapter(fragmentManager, context)
 
         listOfItem[0].apply {
             isOpen=true
             isActive=true
         }
 
-        adapter.submitList(listOfItem)
+        adapter?.submitList(listOfItem)
 
         binding.rvStepper.adapter = adapter
     }
@@ -55,9 +56,8 @@ class VerticalStepper @JvmOverloads constructor(
         inActiveColor = inActiveBtnColor
     }
 
-//    fun setContentLayout(fragmentManager: FragmentManager, fragment: Fragment) {
-//
-//        fragmentManager.beginTransaction().add(R.id.content_fragment, fragment).commit()
-//
-//    }
+    fun getAdapter(): VerticalStepperAdapter?{
+        return adapter
+    }
+
 }
